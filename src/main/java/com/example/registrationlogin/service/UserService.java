@@ -1,0 +1,16 @@
+package com.example.registrationlogin.service;
+
+import com.example.registrationlogin.dto.UserDto;
+import com.example.registrationlogin.entity.User;
+
+import java.util.List;
+
+public interface UserService {
+
+    void saveUser(UserDto userDto);
+
+    User findUserByEmail(String email);
+
+    List<UserDto> findAllUsers();
+
+}
