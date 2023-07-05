@@ -1,5 +1,6 @@
 package com.example.registrationlogin.service.impl;
 
+import com.example.registrationlogin.Exception.UserNotFoundException;
 import com.example.registrationlogin.dto.UserDto;
 import com.example.registrationlogin.entity.User;
 import com.example.registrationlogin.entity.Role;
@@ -50,13 +51,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateResetPasswordtoken(String token, String email) throws CustomerNotFoundException{
+    public void updateResetPasswordtoken(String token, String email) throws UserNotFoundException{
         User user = userRepository.findByEmail(email);
         if(user != null){
             user.setResetPasswordToken(token);
             userRepository.save(user);
         }else {
-            throw new CustomerNotFoundException("Could not find any customer with that the email " + email);
+            throw new UserNotFoundException("Could not find any user with that the email " + email);
         }
     }
 
