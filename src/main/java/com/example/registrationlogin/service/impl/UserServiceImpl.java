@@ -50,6 +50,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateResetPasswordtoken(String token, String email) throws CustomerNotFoundException{
+        User user = userRepository.findByEmail(email);
+        if(user != null){
+            user.setResetPasswordToken(token);
+            userRepository.save(user);
+        }else {
+            throw new CustomerNotFoundException("Could not find any customer with that the email " + email);
+        }
+    }
+
+    @Override
+    public User getByResetPasswordToken(String token) {
+        return null;
+    }
+
+    @Override
+    public void updatePassword(User user, String newPassword) {
+
+    }
+
+    @Override
     public List<UserDto> findAllUsers() {
         List<User> users = userRepository.findAll();
         return users.stream()
