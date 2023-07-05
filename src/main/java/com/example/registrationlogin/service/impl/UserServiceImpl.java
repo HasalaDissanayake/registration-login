@@ -63,12 +63,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getByResetPasswordToken(String token) {
-        return null;
+        return userRepository.findByResetPasswordToken(token);
     }
 
     @Override
     public void updatePassword(User user, String newPassword) {
+        String encodedPassword  = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
 
+        user.setResetPasswordToken(null);
+        userRepository.save(user);
     }
 
     @Override

@@ -31,6 +31,7 @@ public class SpringSecurity {
                         authorize.requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/index").permitAll()
                                 .requestMatchers("/users").hasRole("ADMIN")
+                                .requestMatchers("/forgot_password").permitAll()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
