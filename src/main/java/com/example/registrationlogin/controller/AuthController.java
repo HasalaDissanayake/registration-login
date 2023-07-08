@@ -3,7 +3,7 @@ package com.example.registrationlogin.controller;
 import com.example.registrationlogin.dto.UserDto;
 import com.example.registrationlogin.entity.User;
 import com.example.registrationlogin.service.UserService;
-import com.example.registrationlogin.service.EmailService;
+import com.example.registrationlogin.service.PwResetService;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,14 +25,14 @@ public class AuthController {
 
     private UserService userService;
 
-    private EmailService emailService;
+    private PwResetService pwResetService;
 
     @Value("${app.base-url}")
     private String baseURL;
 
-    public AuthController(UserService userService, EmailService emailService) {
+    public AuthController(UserService userService, PwResetService pwResetService) {
         this.userService = userService;
-        this.emailService = emailService;
+        this.pwResetService = pwResetService;
     }
 
     @GetMapping("/index")
@@ -62,10 +62,11 @@ public class AuthController {
             try {
                 userService.updateResetPasswordtoken(token, email);
                 String resetPasswordLink = baseURL + "/reset_password?token=" + token;
-                emailService.sendEmail(email, resetPasswordLink);
-                model.addAttribute("message", "We have sent a reset password link to your email. Please check.");
-            } catch (UnsupportedEncodingException | MessagingException e) {
-                model.addAttribute("error", "Error while sending email");
+                pwResetService.sendEmail(email, resetPasswordLink);
+                pwResetService.sendSMS("+94767256838",resetPasswordLink);
+                model.addAttribute("message", "We have sent a reset password link to your email and mobile number. Please check.");
+            } catch (UnsupportedEncodingException | MessagingException e ) {
+                model.addAttribute("error", "Error while sending password reset link.");
             }
         }
 
