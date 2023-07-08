@@ -94,14 +94,14 @@ public class AuthController {
 
         if(user == null){
             model.addAttribute("message", "Invalid Token");
-            return "message";
+            return "reset_password";
         } else {
             userService.updatePassword(user, password);
 
             model.addAttribute("message", "You have successfully changed your password");
         }
 
-        return "message";
+        return "reset_password";
     }
 
     @GetMapping("/register")
