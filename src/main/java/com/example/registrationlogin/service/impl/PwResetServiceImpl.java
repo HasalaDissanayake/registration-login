@@ -20,7 +20,7 @@ public class PwResetServiceImpl implements PwResetService {
 
     private String TWILIO_SID = "ACc68a37f31c2355ba8d31befba02495c4";
 
-    private String TWILIO_AUTH = "6a59bc7069618e16baa3455513798a45";
+    private String TWILIO_AUTH = "cbnbn";
 
     public PwResetServiceImpl(JavaMailSender mailSender) {
         this.mailSender = mailSender;
